@@ -1,8 +1,19 @@
 <script lang="ts">
 	import Header from './Header.svelte';
 	import './layout.css';
+	import { invalidate } from '$app/navigation'
+	import { onMount } from 'svelte'
 
-	let { children } = $props();
+	let { data, children } = $props()
+	let { supabase, session } = $derived(data)
+	onMount(() => {
+		const { data } = supabase.auth.onAuthStateChange((event, _session) => {
+			if (_session?.expires_at !== session?.expires_at) {
+				invalidate('supabase:auth')
+			}
+		})
+		return () => data.subscription.unsubscribe()
+	})
 </script>
 
 <div class="app">
@@ -10,7 +21,7 @@
 	<main>{@render children()}</main>
 	<footer>
 		<p>
-			visit 
+			visit
 			<a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a>
 			to learn about SvelteKit
 		</p>
