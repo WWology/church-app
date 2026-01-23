@@ -77,7 +77,7 @@
 						</Button>
 					</Field>
 					<FieldDescription class="text-center">
-						Don't have an account? <a href="##">Sign up</a>
+						Don't have an account? <a href="register">Sign up</a>
 					</FieldDescription>
 				</FieldGroup>
 			</form>
@@ -90,8 +90,4 @@
 			</div>
 		</Card.Content>
 	</Card.Root>
-	<FieldDescription class="px-6 text-center">
-		By clicking continue, you agree to our <a href="##">Terms of Service</a> and
-		<a href="##">Privacy Policy</a>.
-	</FieldDescription>
 </div>

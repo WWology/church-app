@@ -9,7 +9,7 @@
 	let { class: className, ...restProps }: HTMLAttributes<HTMLDivElement> = $props();
 </script>
 
-<div class={cn("flex flex-col gap-6 md:min-h-112.5", className)} {...restProps}>
+<div class={cn("flex flex-col gap-6 md:min-h-[450px]", className)} {...restProps}>
 	<Card.Root class="flex-1 overflow-hidden p-0">
 		<Card.Content class="grid flex-1 p-0 md:grid-cols-2">
 			<form class="flex flex-col items-center justify-center p-6 md:p-8">
