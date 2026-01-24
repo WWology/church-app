@@ -38,6 +38,20 @@ export const handle: Handle = async ({ event, resolve }) => {
         } = await event.locals.supabase.auth.getSession()
         return { session, user }
     }
+
+    const { session } = await event.locals.safeGetSession()
+
+    // Allow public routes
+    const publicRoutes = ['/login', '/signup', '/resetpassword']
+    const isPublicRoute = publicRoutes.some(route => event.url.pathname.startsWith(route))
+
+    if (!session && !isPublicRoute) {
+        return new Response(null, {
+            status: 303,
+            headers: { location: '/login' }
+        })
+    }
+
     return resolve(event, {
         filterSerializedResponseHeaders(name: string) {
             return name === 'content-range' || name === 'x-supabase-api-version'

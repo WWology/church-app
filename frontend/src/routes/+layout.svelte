@@ -5,6 +5,7 @@
 
 	let { data, children } = $props()
 	let { supabase, session } = $derived(data)
+
 	onMount(() => {
 		const { data } = supabase.auth.onAuthStateChange((event, _session) => {
 			if (_session?.expires_at !== session?.expires_at) {
@@ -13,6 +14,7 @@
 		})
 		return () => data.subscription.unsubscribe()
 	})
+
 </script>
 
 <div class="app">
