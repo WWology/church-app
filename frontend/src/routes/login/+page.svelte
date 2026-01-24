@@ -14,7 +14,7 @@
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { cn } from '$lib/utils.js';
 	import { isActionFailure, redirect } from '@sveltejs/kit';
-	import { toast } from 'svelte-sonner';
+	import { toast, Toaster } from 'svelte-sonner';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import type { SubmitFunction } from './$types';
 
@@ -25,14 +25,14 @@
 
 	const handleSubmit: SubmitFunction = ({ formData }) => {
 		return async ({ result }) => {
-			if (isActionFailure(result)) {
-				toast.error('Login failed, please contact support');
-			} else if (result.type === 'redirect') {
-                redirect(303, '/people');
+			if (result.type === 'failure') {
+				toast.error(result.data?.errors?.message ?? 'Login failed, please contact support');
 			}
 		};
 	};
 </script>
+
+<Toaster position="bottom-center" />
 
 <div class="flex min-h-svh flex-col items-center justify-center bg-muted p-6 md:p-10">
 	<div class="w-full max-w-sm md:max-w-3xl">
