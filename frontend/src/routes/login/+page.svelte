@@ -13,7 +13,7 @@
 	} from '$lib/components/ui/field/index.js';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { cn } from '$lib/utils.js';
-	import { isActionFailure, redirect } from '@sveltejs/kit';
+	import { isActionFailure, redirect, type ActionResult } from '@sveltejs/kit';
 	import { toast, Toaster } from 'svelte-sonner';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import type { SubmitFunction } from './$types';
@@ -23,8 +23,8 @@
 
 	let form = $derived(page.form);
 
-	const handleSubmit: SubmitFunction = ({ formData }) => {
-		return async ({ result }) => {
+	const handleSubmit: SubmitFunction = () => {
+		return async ({ result: ActionResult }) => {
 			if (result.type === 'failure') {
 				toast.error(result.data?.errors?.message ?? 'Login failed, please contact support');
 			}
