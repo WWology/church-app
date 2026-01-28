@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment'
 @Injectable({
     providedIn: 'root',
 })
-export class SupabaseService {
+export class AuthService {
     private supabase: SupabaseClient
     _session: AuthSession | null = null
 
@@ -30,8 +30,8 @@ export class SupabaseService {
         return this.supabase.auth.onAuthStateChange(callback)
     }
 
-    signIn(email: string) {
-        return this.supabase.auth.signInWithOtp({ email })
+    signInWithEmailAndPassword(email: string, password: string) {
+        return this.supabase.auth.signInWithPassword({ email, password});
     }
 
     signOut() {
