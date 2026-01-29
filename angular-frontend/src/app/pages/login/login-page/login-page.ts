@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { email, form, FormField, required } from '@angular/forms/signals';
+import { email, form, FormField, minLength, required } from '@angular/forms/signals';
 import { CardModule } from "primeng/card";
 import { InputGroupModule } from "primeng/inputgroup";
 import { InputGroupAddonModule } from "primeng/inputgroupaddon";
@@ -24,7 +24,13 @@ export class LoginPage {
     password: '',
   })
 
-  loginForm = form(this.loginModel);
+  loginForm = form(this.loginModel, (fieldPath) => {
+    required(fieldPath.email, { message: 'Email is required' });
+    email(fieldPath.email, { message: 'Enter a valid email address' });
+
+    required(fieldPath.password, { message: 'Password is required' });
+    minLength(fieldPath.password, 6, { message: 'Password must be at least 6 characters long' });
+  });
 
   async onSubmit()  {
     try {
