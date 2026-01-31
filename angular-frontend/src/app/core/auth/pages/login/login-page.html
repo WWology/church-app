@@ -6,10 +6,13 @@
         <div class="grid p-0 md:grid-cols-2">
           <form (submit)="onSubmit($event)" class="p-6 md:p-8">
             <div class="flex w-full flex-col gap-7">
+              <!-- Header -->
               <div class="flex flex-col items-center gap-2 text-center">
                 <h1 class="text-2xl font-bold">Welcome Back</h1>
                 <p class="text-muted-foreground text-balance">Login to your Notitia account</p>
               </div>
+
+              <!-- Email Field -->
               <div class="flex w-full flex-col gap-3">
                 <label for="email" class="flex w-fit gap-2 text-sm leading-snug font-medium"
                   >Email</label
@@ -33,6 +36,8 @@
                   }}</p-message>
                 }
               </div>
+
+              <!-- Password Field -->
               <div class="flex w-full flex-col gap-3">
                 <div class="flex items-center">
                   <label for="password" class="flex w-fit gap-2 leading-snug text-sm font-medium"
@@ -65,9 +70,15 @@
                   }}</p-message>
                 }
               </div>
+
+              <!-- Submit Button -->
               <p-button label="Login" type="submit" [loading]="loading()" fluid />
               <p-divider align="center" type="solid">Or</p-divider>
+
+              <!-- Social Login Button -->
               <p-button label="Login with Google" icon="pi pi-google" variant="outlined" fluid />
+
+              <!-- Register Link -->
               <p class="text-center text-sm text-muted-foreground">
                 Don't have an account? <a routerLink="/register" class="underline">Register here</a>
               </p>

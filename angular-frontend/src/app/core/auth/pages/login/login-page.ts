@@ -14,7 +14,6 @@ import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 
 import { AuthService } from '../../auth.service';
-import { sign } from 'crypto';
 
 interface LoginData {
   email: string;
