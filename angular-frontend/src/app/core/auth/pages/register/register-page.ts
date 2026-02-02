@@ -1,16 +1,18 @@
 import { Component, inject, signal } from '@angular/core';
 import { email, form, FormField, minLength, required, validate } from '@angular/forms/signals';
+import { RouterLink } from '@angular/router';
 
+import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { DividerModule } from 'primeng/divider';
 import { InputGroup } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
 
 import { AuthService } from '../../auth.service';
-import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
-import { DividerModule } from 'primeng/divider';
-import { RouterLink } from '@angular/router';
 
 interface RegisterData {
   fullName: string;
@@ -26,17 +28,22 @@ interface RegisterData {
     CardModule,
     DividerModule,
     FormField,
-    InputGroup,
     InputGroupAddonModule,
+    InputGroup,
     InputTextModule,
     MessageModule,
     RouterLink,
+    ToastModule,
   ],
+  providers: [MessageService],
   templateUrl: './register-page.html',
   styleUrl: './register-page.css',
 })
 export class RegisterPage {
   private authService = inject(AuthService);
+  private messageService = inject(MessageService);
+
+  loading = signal(false);
 
   registerModel = signal<RegisterData>({
     fullName: '',
@@ -70,5 +77,58 @@ export class RegisterPage {
 
   async onSubmit(event: Event) {
     event.preventDefault();
+    this.loading.set(true);
+
+    if (this.registerForm().pending()) {
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Validation Pending',
+        detail: 'Please wait for validation to complete.',
+      });
+      this.loading.set(false);
+      return;
+    }
+
+    if (this.registerForm().invalid()) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Validation Error',
+        detail: 'Please correct the errors in the form before submitting.',
+      });
+      this.loading.set(false);
+      return;
+    }
+
+    try {
+      const formData = this.registerModel();
+      const { error } = await this.authService.signUp(
+        formData.email,
+        formData.password,
+        formData.fullName,
+      );
+      if (error) throw error;
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Check your email',
+        detail: 'Registration successful! Please check your email to verify your account.',
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Registration Failed',
+          detail: error.message,
+        });
+      }
+    } finally {
+      this.registerForm().reset();
+      this.registerModel.set({
+        fullName: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+      });
+      this.loading.set(false);
+    }
   }
 }

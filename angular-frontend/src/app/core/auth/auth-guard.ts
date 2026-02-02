@@ -17,9 +17,13 @@ export const authGuard: CanActivateFn = async (_route, state) => {
       });
 };
 
-export const publicOnlyGuard: CanActivateFn = async () => {
+export const publicOnlyGuard: CanActivateFn = async (route, _state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
+
+  if (route.queryParamMap.get('justRegistered') === 'true') {
+    return true;
+  }
 
   const session = await authService.getSession();
 

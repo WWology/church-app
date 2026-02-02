@@ -69,6 +69,18 @@ export class AuthService {
     return data.session;
   }
 
+  signUp(email: string, password: string, fullName: string) {
+    return this.supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          full_name: fullName,
+        },
+      },
+    });
+  }
+
   signInWithEmailAndPassword(email: string, password: string) {
     return this.supabase.auth.signInWithPassword({ email, password });
   }
