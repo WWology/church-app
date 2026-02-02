@@ -6,7 +6,6 @@ import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
-import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
@@ -26,7 +25,6 @@ interface LoginData {
     ButtonModule,
     CardModule,
     DividerModule,
-    FloatLabelModule,
     FormField,
     InputGroupAddonModule,
     InputGroupModule,
@@ -68,6 +66,7 @@ export class LoginPage {
         summary: 'Validation Pending',
         detail: 'Please wait for validation to complete.',
       });
+      this.loading.set(false);
       return;
     }
 
@@ -77,6 +76,7 @@ export class LoginPage {
         summary: 'Validation Error',
         detail: 'Please correct the errors in the form before submitting.',
       });
+      this.loading.set(false);
       return;
     }
 
@@ -96,6 +96,11 @@ export class LoginPage {
         });
       }
     } finally {
+      this.loginForm().reset();
+      this.loginModel.set({
+        email: '',
+        password: '',
+      });
       this.loading.set(false);
     }
   }
