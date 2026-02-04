@@ -22,7 +22,7 @@ interface RegisterData {
 }
 
 @Component({
-  selector: 'app-register',
+  selector: 'register-page',
   imports: [
     ButtonModule,
     CardModule,

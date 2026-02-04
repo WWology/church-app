@@ -20,7 +20,7 @@ interface LoginData {
 }
 
 @Component({
-  selector: 'app-login-page',
+  selector: 'login-page',
   imports: [
     ButtonModule,
     CardModule,

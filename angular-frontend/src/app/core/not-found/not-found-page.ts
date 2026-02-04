@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CardModule } from 'primeng/card';
 
 @Component({
-  selector: 'app-not-found',
+  selector: 'not-found-page',
   imports: [CardModule],
   template: `
     <div class="flex min-h-svh flex-col items-center justify-center bg-gray-100 p-6 md:p-10">
