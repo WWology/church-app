@@ -15,6 +15,17 @@
 		},
 		"ghcr.io/devcontainers/features/git:1": {},
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {}
+	},
+	"portsAttributes": {
+		"4200": {
+			"label": "Angular Dev"
+		},
+		"54321": {
+			"label": "Supabase Local API"
+		},
+		"54323": {
+			"label": "Supabase Local Studio"
+		}
 	}
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
