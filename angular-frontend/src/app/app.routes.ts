@@ -16,6 +16,15 @@ export const routes: Routes = [
         path: 'people',
         loadChildren: () => import('./features/people/people.routes').then((r) => r.peopleRoutes),
       },
+      {
+        path: 'groups',
+        loadChildren: () => import('./features/groups/groups.routes').then((r) => r.groupsRoutes),
+      },
+      {
+        path: 'services',
+        loadChildren: () =>
+          import('./features/services/services.routes').then((r) => r.servicesRoutes),
+      },
     ],
   },
   {
