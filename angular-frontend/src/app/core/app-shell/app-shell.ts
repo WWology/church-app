@@ -1,10 +1,47 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, computed, inject, signal } from '@angular/core';
+import { ActivatedRoute, isActive, Router, RouterOutlet } from '@angular/router';
+import { MenubarModule } from 'primeng/menubar';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-shell',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, MenubarModule],
   templateUrl: './app-shell.html',
   styleUrl: './app-shell.css',
 })
-export class AppShell {}
+export class AppShell {
+  private router = inject(Router);
+
+  navItems: MenuItem[] = [
+    {
+      label: 'People',
+      items: [
+        {
+          label: 'People',
+          command: () => {
+            this.navItems[0].label = 'People';
+            this.router.navigate(['/people']);
+          },
+        },
+        {
+          label: 'Groups',
+          command: () => {
+            this.navItems[0].label = 'Groups';
+            this.router.navigate(['/groups']);
+          },
+        },
+        {
+          label: 'Services',
+          command: () => {
+            this.navItems[0].label = 'Services';
+            this.router.navigate(['/services']);
+          },
+        },
+        {
+          label: 'Settings',
+          routerLink: '/settings',
+        },
+      ],
+    },
+  ];
+}
