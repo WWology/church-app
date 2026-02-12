@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, isActive, Router, RouterOutlet } from '@angular/router';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
@@ -8,6 +8,7 @@ import { MenuItem } from 'primeng/api';
   imports: [RouterOutlet, MenubarModule],
   templateUrl: './app-shell.html',
   styleUrl: './app-shell.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppShell {
   private router = inject(Router);
