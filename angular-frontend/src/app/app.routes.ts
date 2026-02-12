@@ -5,6 +5,7 @@ import { authGuard, publicOnlyGuard } from './core/auth/auth-guard';
 import { NotFoundPage } from './core/not-found/not-found-page';
 import { ResetPasswordPage } from './core/auth/pages/reset-password/reset-password-page';
 import { AppShell } from './core/app-shell/app-shell';
+import { peopleRoutes } from './features/people/people.routes';
 
 export const routes: Routes = [
   {
@@ -14,7 +15,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'people',
-        loadChildren: () => import('./features/people/people.routes').then((r) => r.peopleRoutes),
+        children: peopleRoutes,
       },
       {
         path: 'groups',
