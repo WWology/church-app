@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { email, form, FormField, minLength, required, validate } from '@angular/forms/signals';
 import { RouterLink } from '@angular/router';
 
@@ -38,6 +38,7 @@ interface RegisterData {
   providers: [MessageService],
   templateUrl: './register-page.html',
   styleUrl: './register-page.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterPage {
   private authService = inject(AuthService);

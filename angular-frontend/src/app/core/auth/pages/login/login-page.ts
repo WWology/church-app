@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { email, form, FormField, minLength, required } from '@angular/forms/signals';
 import { RouterLink } from '@angular/router';
 
@@ -36,6 +36,7 @@ interface LoginData {
   providers: [MessageService],
   templateUrl: './login-page.html',
   styleUrl: './login-page.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginPage {
   private authService = inject(AuthService);
