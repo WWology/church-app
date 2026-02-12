@@ -15,7 +15,6 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   private router = inject(Router);
-  private ngZone = inject(NgZone); // Required to trigger Angular Change Detection from 3rd party events
   private supabase: SupabaseClient;
 
   // READ/WRITE Signal: This is the single source of truth for the User state.
@@ -37,26 +36,9 @@ export class AuthService {
       // Always keep the signal in sync with the current session.
       this._currentUser.set(session?.user || null);
 
-      // 2. Handle Navigation (Side Effects)
-      // We wrap navigation in ngZone.run() because Supabase's callback runs
-      // outside of Angular's zone. Without this, the URL would change but the page
-      // might not visually update.
-      if (event === 'SIGNED_IN' || event === 'PASSWORD_RECOVERY') {
-        this.ngZone.run(() => {
-          // Check if the user was trying to go somewhere specific before logging in
-          const currentUrl = this.router.parseUrl(this.router.url);
-          const returnUrl = currentUrl.queryParamMap.get('returnUrl');
-
-          if (returnUrl) {
-            this.router.navigateByUrl(returnUrl);
-          } else {
-            this.router.navigate(['/people']);
-          }
-        });
-      }
-
+      // 2. Redirect to /login on SIGNED_OUT
       if (event === 'SIGNED_OUT') {
-        this.ngZone.run(() => this.router.navigate(['/login']));
+        this.router.navigate(['/login']);
       }
     });
   }
