@@ -54,7 +54,6 @@ export class LoginPage {
     email(fieldPath.email, { message: 'Enter a valid email address' });
 
     required(fieldPath.password, { message: 'Password is required' });
-    minLength(fieldPath.password, 6, { message: 'Password must be at least 6 characters long' });
   });
 
   async onSubmit(event: Event) {
