@@ -5,5 +5,8 @@
       <i [class]="['pi', root ? 'pi-angle-down' : '']"></i>
     </a>
   </ng-template>
+  <ng-template #end>
+    <p-button label="Logout" (click)="logout()"></p-button>
+  </ng-template>
 </p-menubar>
 <router-outlet />
