@@ -8,7 +8,7 @@ import {
   User,
 } from '@supabase/supabase-js';
 import { environment } from '../../../environments/environment';
-import { Router } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -38,17 +38,22 @@ export class AuthService {
 
       // 2. Redirect to /login on SIGNED_OUT
       if (event === 'SIGNED_OUT') {
-        this.router.navigate(['/login']);
+        const returnUrl = this.router.url;
+        console.log(returnUrl);
+
+        this.router.navigate(['/login'], {
+          queryParams: { returnUrl },
+        });
       }
     });
   }
 
   // Called by AuthGuard to verify session before route activation.
   // We also update the signal here to ensure the state is fresh immediately on load.
-  async getSession(): Promise<Session | null> {
+  async getUser(): Promise<User | null> {
     const { data } = await this.supabase.auth.getSession();
     this._currentUser.set(data.session?.user || null);
-    return data.session;
+    return data.session?.user || null;
   }
 
   signUp(email: string, password: string, fullName: string) {

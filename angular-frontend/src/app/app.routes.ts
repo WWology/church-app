@@ -14,6 +14,11 @@ export const routes: Routes = [
     component: AppShell,
     children: [
       {
+        path: '',
+        redirectTo: 'people',
+        pathMatch: 'full',
+      },
+      {
         path: 'people',
         children: peopleRoutes,
       },

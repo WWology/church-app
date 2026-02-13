@@ -6,11 +6,11 @@ export const authGuard: CanActivateFn = async (_route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  const session = await authService.getSession();
-
   const loginTree = router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } });
 
-  return session
+  const user = await authService.getUser();
+
+  return user
     ? true
     : new RedirectCommand(loginTree, {
         replaceUrl: true,
@@ -25,9 +25,9 @@ export const publicOnlyGuard: CanActivateFn = async (route, _state) => {
     return true;
   }
 
-  const session = await authService.getSession();
+  const user = await authService.getUser();
 
-  return session
+  return user
     ? new RedirectCommand(router.parseUrl('/people'), {
         replaceUrl: true,
       })

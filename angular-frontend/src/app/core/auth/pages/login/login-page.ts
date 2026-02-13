@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { email, form, FormField, minLength, required } from '@angular/forms/signals';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -41,6 +41,8 @@ interface LoginData {
 export class LoginPage {
   private authService = inject(AuthService);
   private messageService = inject(MessageService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   loading = signal(false);
 
@@ -87,6 +89,9 @@ export class LoginPage {
         formData.password,
       );
       if (error) throw error;
+      const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/people';
+      console.log(returnUrl);
+      this.router.navigateByUrl(returnUrl);
     } catch (error) {
       if (error instanceof Error) {
         this.messageService.add({
