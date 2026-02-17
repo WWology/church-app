@@ -1,6 +1,10 @@
-<p-menubar [model]="navItems">
+<p-menubar [model]="navItems()">
   <ng-template #item let-navItem let-root="root">
-    <a class="flex items-center px-4 py-3 cursor-pointer gap-2">
+    <a
+      [routerLink]="navItem.routerLink"
+      routerLinkActive="bg-gray-200"
+      class="flex items-center px-4 py-3 cursor-pointer gap-2"
+    >
       <span>{{ navItem.label }}</span>
       <i [class]="['pi', root ? 'pi-angle-down' : '']"></i>
     </a>

@@ -1,13 +1,22 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { ActivatedRoute, isActive, Router, RouterOutlet } from '@angular/router';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core'; // Removed signal, added computed
+import {
+  isActive,
+  IsActiveMatchOptions, // Added
+  Router,
+  RouterOutlet,
+  RouterLinkActive,
+  RouterLinkWithHref,
+} from '@angular/router';
+
 import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+
 import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-shell',
-  imports: [RouterOutlet, MenubarModule, ButtonModule],
+  imports: [RouterOutlet, MenubarModule, ButtonModule, RouterLinkWithHref, RouterLinkActive],
   templateUrl: './app-shell.html',
   styleUrl: './app-shell.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,38 +25,48 @@ export class AppShell {
   private authService = inject(AuthService);
   private router = inject(Router);
 
-  navItems: MenuItem[] = [
+  // Define options once for reuse
+  private readonly matchOptions: IsActiveMatchOptions = {
+    paths: 'subset',
+    queryParams: 'ignored',
+    fragment: 'ignored',
+    matrixParams: 'ignored',
+  };
+
+  // Create stable signals for each route's active state
+  private isPeopleActive = isActive('/people', this.router, this.matchOptions);
+  private isGroupsActive = isActive('/groups', this.router, this.matchOptions);
+  private isServicesActive = isActive('/services', this.router, this.matchOptions);
+  private isSettingsActive = isActive('/settings', this.router, this.matchOptions);
+
+  // Use computed to reactively update the menu items when routes change
+  navItems = computed<MenuItem[]>(() => [
     {
       label: 'People',
       items: [
         {
           label: 'People',
-          command: () => {
-            this.navItems[0].label = 'People';
-            this.router.navigate(['/people']);
-          },
+          routerLink: '/people',
+          disabled: this.isPeopleActive(),
         },
         {
           label: 'Groups',
-          command: () => {
-            this.navItems[0].label = 'Groups';
-            this.router.navigate(['/groups']);
-          },
+          routerLink: '/groups',
+          disabled: this.isGroupsActive(),
         },
         {
           label: 'Services',
-          command: () => {
-            this.navItems[0].label = 'Services';
-            this.router.navigate(['/services']);
-          },
+          routerLink: '/services',
+          disabled: this.isServicesActive(),
         },
         {
           label: 'Settings',
           routerLink: '/settings',
+          disabled: this.isSettingsActive(),
         },
       ],
     },
-  ];
+  ]);
 
   logout() {
     this.authService.signOut();
