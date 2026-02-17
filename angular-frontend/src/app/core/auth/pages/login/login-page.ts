@@ -90,7 +90,6 @@ export class LoginPage {
       );
       if (error) throw error;
       const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/people';
-      console.log(returnUrl);
       this.router.navigateByUrl(returnUrl);
     } catch (error) {
       if (error instanceof Error) {
