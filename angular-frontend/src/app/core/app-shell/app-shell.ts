@@ -40,33 +40,47 @@ export class AppShell {
   private isSettingsActive = isActive('/settings', this.router, this.matchOptions);
 
   // Use computed to reactively update the menu items when routes change
-  navItems = computed<MenuItem[]>(() => [
-    {
-      label: 'People',
-      items: [
-        {
-          label: 'People',
-          routerLink: '/people',
-          disabled: this.isPeopleActive(),
-        },
-        {
-          label: 'Groups',
-          routerLink: '/groups',
-          disabled: this.isGroupsActive(),
-        },
-        {
-          label: 'Services',
-          routerLink: '/services',
-          disabled: this.isServicesActive(),
-        },
-        {
-          label: 'Settings',
-          routerLink: '/settings',
-          disabled: this.isSettingsActive(),
-        },
-      ],
-    },
-  ]);
+  navItems = computed<MenuItem[]>(() => {
+    // Determine the main label based on active route
+    let currentLabel: string;
+    if (this.isGroupsActive()) {
+      currentLabel = 'Groups';
+    } else if (this.isServicesActive()) {
+      currentLabel = 'Services';
+    } else if (this.isSettingsActive()) {
+      currentLabel = 'Settings';
+    } else {
+      currentLabel = 'People';
+    }
+
+    return [
+      {
+        label: currentLabel,
+        items: [
+          {
+            label: 'People',
+            routerLink: '/people',
+            disabled: this.isPeopleActive(),
+          },
+          {
+            label: 'Groups',
+            routerLink: '/groups',
+            disabled: this.isGroupsActive(),
+          },
+          {
+            label: 'Services',
+            routerLink: '/services',
+            disabled: this.isServicesActive(),
+          },
+          {
+            label: 'Settings',
+            routerLink: '/settings',
+            disabled: this.isSettingsActive(),
+          },
+        ],
+      },
+    ];
+  });
 
   logout() {
     this.authService.signOut();
