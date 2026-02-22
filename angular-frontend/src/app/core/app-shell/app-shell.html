@@ -10,7 +10,27 @@
     </a>
   </ng-template>
   <ng-template #end>
-    <p-button label="Logout" (click)="logout()"></p-button>
+    <p-avatar
+      label="Y"
+      size="large"
+      shape="circle"
+      (click)="op.toggle($event)"
+      class="cursor-pointer"
+    ></p-avatar>
+    <p-popover #op>
+      <div class="flex flex-col gap-3 mx-2">
+        <a class="flex items-center gap-4" routerLink="/profile">
+          <i class="pi pi-user"></i>
+          Profile
+        </a>
+        <a class="flex items-center gap-4" routerLink="/settings">
+          <i class="pi pi-cog"></i>
+          Settings
+        </a>
+        <p-divider />
+        <button pButton label="Logout" icon="pi pi-sign-out" (click)="logout()"></button>
+      </div>
+    </p-popover>
   </ng-template>
 </p-menubar>
 <router-outlet />

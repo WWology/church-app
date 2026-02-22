@@ -3,20 +3,32 @@ import {
   isActive,
   IsActiveMatchOptions, // Added
   Router,
-  RouterOutlet,
   RouterLinkActive,
   RouterLinkWithHref,
+  RouterOutlet,
 } from '@angular/router';
 
-import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
+import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
+import { DividerModule } from 'primeng/divider';
+import { MenubarModule } from 'primeng/menubar';
+import { PopoverModule } from 'primeng/popover';
 
 import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-shell',
-  imports: [RouterOutlet, MenubarModule, ButtonModule, RouterLinkWithHref, RouterLinkActive],
+  imports: [
+    AvatarModule,
+    ButtonModule,
+    DividerModule,
+    MenubarModule,
+    PopoverModule,
+    RouterLinkActive,
+    RouterLinkWithHref,
+    RouterOutlet,
+  ],
   templateUrl: './app-shell.html',
   styleUrl: './app-shell.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
