@@ -1,14 +1,5 @@
+import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 import { User } from '@supabase/supabase-js';
-import {
-  patchState,
-  signalStore,
-  withComputed,
-  withHooks,
-  withMethods,
-  withState,
-} from '@ngrx/signals';
-import { inject } from '@angular/core';
-import { AuthService } from './auth.service';
 
 type AuthState = {
   user: User | null;

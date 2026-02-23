@@ -1,14 +1,9 @@
-import { computed, inject, Injectable, NgZone, signal } from '@angular/core';
-import {
-  AuthChangeEvent,
-  AuthSession,
-  createClient,
-  Session,
-  SupabaseClient,
-  User,
-} from '@supabase/supabase-js';
+import { inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
+
 import { environment } from '../../../environments/environment';
-import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { AuthStore } from './auth-store';
 
 @Injectable({
