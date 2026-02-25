@@ -49,7 +49,6 @@ export class AppShell {
   private isPeopleActive = isActive('/people', this.router, this.matchOptions);
   private isGroupsActive = isActive('/groups', this.router, this.matchOptions);
   private isServicesActive = isActive('/services', this.router, this.matchOptions);
-  private isSettingsActive = isActive('/settings', this.router, this.matchOptions);
 
   // Use computed to reactively update the menu items when routes change
   navItems = computed<MenuItem[]>(() => {
@@ -59,8 +58,6 @@ export class AppShell {
       currentLabel = 'Groups';
     } else if (this.isServicesActive()) {
       currentLabel = 'Services';
-    } else if (this.isSettingsActive()) {
-      currentLabel = 'Settings';
     } else {
       currentLabel = 'People';
     }
@@ -83,11 +80,6 @@ export class AppShell {
             label: 'Services',
             routerLink: '/services',
             disabled: this.isServicesActive(),
-          },
-          {
-            label: 'Settings',
-            routerLink: '/settings',
-            disabled: this.isSettingsActive(),
           },
         ],
       },
