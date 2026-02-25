@@ -11,17 +11,20 @@ import {
 import { MenuItem } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
 import { MenubarModule } from 'primeng/menubar';
 import { PopoverModule } from 'primeng/popover';
 
 import { AuthService } from '../auth/auth.service';
+import { AuthStore } from '../auth/auth-store';
 
 @Component({
   selector: 'app-shell',
   imports: [
     AvatarModule,
     ButtonModule,
+    CardModule,
     DividerModule,
     MenubarModule,
     PopoverModule,
@@ -34,6 +37,7 @@ import { AuthService } from '../auth/auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppShell {
+  readonly authStore = inject(AuthStore);
   private authService = inject(AuthService);
   private router = inject(Router);
 

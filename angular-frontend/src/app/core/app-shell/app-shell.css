@@ -1,0 +1,5 @@
+.p-menubar {
+  --p-menubar-border-color: none; /* or transparent */
+  --p-menubar-border-radius: 0;
+  --p-menubar-padding: 4px;
+}

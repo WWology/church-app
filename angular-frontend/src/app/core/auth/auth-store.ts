@@ -31,6 +31,8 @@ export const AuthStore = signalStore(
   })),
   withComputed((state) => ({
     isAuthenticated: () => Boolean(state.user()),
+    displayName: () => state.user()?.user_metadata?.['full_name'] || 'Anonymous',
+    uid: () => state.user()?.id,
   })),
   withMethods(({ authService, ...store }) => ({
     // Initialize the store by checking for an existing session

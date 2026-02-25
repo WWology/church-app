@@ -10,16 +10,17 @@
     </a>
   </ng-template>
   <ng-template #end>
-    <p-avatar
-      label="Y"
-      size="large"
-      shape="circle"
-      (click)="op.toggle($event)"
-      class="cursor-pointer"
-    ></p-avatar>
+    <div (click)="op.toggle($event)" class="cursor-pointer">
+      <p-avatar label="Y" size="large" shape="circle"></p-avatar>
+      <span class="hidden md:inline">{{ authStore.displayName() }}</span>
+    </div>
     <p-popover #op>
       <div class="flex flex-col gap-3 mx-2">
-        <a class="flex items-center gap-4" routerLink="/profile">
+        <a
+          class="flex items-center gap-4"
+          [routerLink]="['/people', authStore.uid()]"
+          (click)="op.toggle($event)"
+        >
           <i class="pi pi-user"></i>
           Profile
         </a>
@@ -33,4 +34,4 @@
     </p-popover>
   </ng-template>
 </p-menubar>
-<router-outlet />
+<p-card class="mx-6 bg-gray-200"><router-outlet /></p-card>
