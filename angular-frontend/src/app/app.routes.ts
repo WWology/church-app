@@ -11,7 +11,7 @@ import { peopleRoutes } from './features/people/people.routes';
 export const routes: Routes = [
   {
     path: '',
-    canActivate: [authGuard],
+    canActivateChild: [authGuard],
     component: AppShell,
     children: [
       {
