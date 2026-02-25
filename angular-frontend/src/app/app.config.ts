@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { ApplicationConfig, inject, provideAppInitializer } from '@angular/core';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 
@@ -7,6 +7,7 @@ import Aura from '@primeuix/themes/aura';
 import { providePrimeNG } from 'primeng/config';
 
 import { routes } from './app.routes';
+import { AuthStore } from './core/auth/auth-store';
 
 const Notitia = definePreset(Aura, {
   semantic: {
@@ -80,7 +81,9 @@ const Notitia = definePreset(Aura, {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideBrowserGlobalErrorListeners(),
+    provideAppInitializer(async () => {
+      await inject(AuthStore).init();
+    }),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
     providePrimeNG({

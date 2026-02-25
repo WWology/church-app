@@ -1,45 +1,25 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { createClient, Session, SupabaseClient, User } from '@supabase/supabase-js';
 
 import { environment } from '../../../environments/environment';
 import { AuthStore } from './auth-store';
+import { create } from 'domain';
+import { Observable, share } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  readonly authStore = inject(AuthStore);
+  private supabase: SupabaseClient = createClient(environment.supabaseUrl, environment.supabaseKey);
 
-  private router = inject(Router);
-  private supabase: SupabaseClient;
-
-  constructor() {
-    this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
-
-    // CENTRAL AUTH HUB: Listens to every auth event (login, logout, token refresh, etc.)
-    this.supabase.auth.onAuthStateChange((event, session) => {
-      // 1. Update State
-      // Always keep the signal in sync with the current session.
-      this.authStore.setUser(session?.user || null);
-
-      // 2. Redirect to /login on SIGNED_OUT
-      if (event === 'SIGNED_OUT') {
-        const returnUrl = this.router.url;
-
-        this.router.navigate(['/login'], {
-          queryParams: { returnUrl },
-        });
-      }
-    });
+  getSession() {
+    return this.supabase.auth.getSession();
   }
 
-  // Called by AuthGuard to verify session before route activation.
-  // We also update the signal here to ensure the state is fresh immediately on load.
-  async getUser() {
-    const { data } = await this.supabase.auth.getSession();
-    this.authStore.setUser(data.session?.user || null);
+  onAuthStateChange(callback: (event: string, session: Session | null) => void) {
+    return this.supabase.auth.onAuthStateChange(callback);
   }
 
   signUp(email: string, password: string, fullName: string) {
