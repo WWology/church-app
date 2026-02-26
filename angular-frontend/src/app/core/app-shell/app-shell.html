@@ -10,9 +10,18 @@
     </a>
   </ng-template>
   <ng-template #end>
-    <div (click)="op.toggle($event)" class="cursor-pointer">
-      <p-avatar label="Y" size="large" shape="circle"></p-avatar>
-      <span class="hidden md:inline">{{ authStore.displayName() }}</span>
+    <div class="cursor-pointer flex gap-2 items-center">
+      <!-- Theme Switcher -->
+      <p-toggleswitch [(ngModel)]="darkMode" (ngModelChange)="toggleDarkMode()">
+        <ng-template #handle let-darkmode="darkMode">
+          <i [ngClass]="['text-xs!', 'pi', darkMode ? 'pi-moon' : 'pi-sun']"></i>
+        </ng-template>
+      </p-toggleswitch>
+      <!-- Avatar -->
+      <div (click)="op.toggle($event)" class="flex items-center gap-2 mx-2">
+        <p-avatar [label]="authStore.displayName()[0]" size="large" shape="circle"></p-avatar>
+        <span class="text-color hidden md:inline">{{ authStore.displayName() }}</span>
+      </div>
     </div>
     <p-popover #op>
       <div class="flex flex-col gap-3 mx-2">
@@ -34,4 +43,4 @@
     </p-popover>
   </ng-template>
 </p-menubar>
-<p-card class="mx-6 bg-gray-200"><router-outlet /></p-card>
+<p-card class="m-6 bg-emphasis"><router-outlet /></p-card>

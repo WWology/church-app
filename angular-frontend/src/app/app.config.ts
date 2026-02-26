@@ -11,68 +11,60 @@ import { AuthStore } from './core/auth/auth-store';
 
 const Notitia = definePreset(Aura, {
   semantic: {
-    primary: palette('{slate}'),
+    primary: {
+      50: '{surface.50}',
+      100: '{surface.100}',
+      200: '{surface.200}',
+      300: '{surface.300}',
+      400: '{surface.400}',
+      500: '{surface.500}',
+      600: '{surface.600}',
+      700: '{surface.700}',
+      800: '{surface.800}',
+      900: '{surface.900}',
+      950: '{surface.950}',
+    },
+    surface: {
+      0: '#ffffff',
+      50: '#ececec',
+      100: '#dedfdf',
+      200: '#c4c4c6',
+      300: '#adaeb0',
+      400: '#97979b',
+      500: '#7f8084',
+      600: '#6a6b70',
+      700: '#55565b',
+      800: '#3f4046',
+      900: '#2c2c34',
+      950: '#16161d',
+    },
     colorScheme: {
       light: {
         primary: {
-          color: '{slate.950}',
-          inverseColor: '#ffffff',
-          hoverColor: '{slate.900}',
-          activeColor: '{slate.800}',
+          color: '{primary.950}',
+          contrastColor: '#ffffff',
+          hoverColor: '{primary.800}',
+          activeColor: '{primary.700}',
         },
         highlight: {
-          background: '{slate.950}',
-          focusBackground: '{slate.700}',
+          background: '{primary.950}',
+          focusBackground: '{primary.700}',
           color: '#ffffff',
           focusColor: '#ffffff',
-        },
-        surface: {
-          0: '#ffffff',
-          50: '{slate.50}',
-          100: '{slate.100}',
-          200: '{slate.200}',
-          300: '{slate.300}',
-          400: '{slate.400}',
-          500: '{slate.500}',
-          600: '{slate.600}',
-          700: '{slate.700}',
-          800: '{slate.800}',
-          900: '{slate.900}',
-          950: '{slate.950}',
         },
       },
       dark: {
         primary: {
-          color: '{slate.400}',
-          inverseColor: '{slate.950}',
-          hoverColor: '{slate.300}',
-          activeColor: '{slate.200}',
+          color: '{primary.50}',
+          contrastColor: '{primary.950}',
+          hoverColor: '{primary.200}',
+          activeColor: '{primary.300}',
         },
         highlight: {
-          background: 'rgba(148, 163, 184, .16)',
-          focusBackground: 'rgba(148, 163, 184, .24)',
-          color: 'rgba(255,255,255,.87)',
-          focusColor: 'rgba(255,255,255,.87)',
-        },
-        surface: {
-          0: '#1e293b', // Main background (slate-800)
-          50: '#475569', // Lighter surface
-          100: '#334155', // Card backgrounds
-          200: '#1e293b', // Default surface
-          300: '#1e293b',
-          400: '#1e293b',
-          500: '#0f172a', // Darker surface (slate-900)
-          600: '#0f172a',
-          700: '#020617', // Darkest surface (slate-950)
-          800: '#020617',
-          900: '#020617',
-          950: '#000000',
-        },
-        text: {
-          color: 'rgba(255, 255, 255, 0.87)', // Primary text
-          hoverColor: 'rgba(255, 255, 255, 1)', // Hover text
-          mutedColor: 'rgba(255, 255, 255, 0.60)', // Muted text
-          hoverMutedColor: 'rgba(255, 255, 255, 0.87)', // Muted hover text
+          background: '{primary.50}',
+          focusBackground: '{primary.300}',
+          color: '{primary.950}',
+          focusColor: '{primary.950}',
         },
       },
     },

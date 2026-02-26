@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core'; // Removed signal, added computed
 import {
   isActive,
@@ -15,22 +16,27 @@ import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
 import { MenubarModule } from 'primeng/menubar';
 import { PopoverModule } from 'primeng/popover';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
-import { AuthService } from '../auth/auth.service';
+import { FormsModule } from '@angular/forms';
 import { AuthStore } from '../auth/auth-store';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-shell',
   imports: [
     AvatarModule,
     ButtonModule,
+    CommonModule,
     CardModule,
     DividerModule,
+    FormsModule,
     MenubarModule,
     PopoverModule,
     RouterLinkActive,
     RouterLinkWithHref,
     RouterOutlet,
+    ToggleSwitchModule,
   ],
   templateUrl: './app-shell.html',
   styleUrl: './app-shell.css',
@@ -40,6 +46,8 @@ export class AppShell {
   readonly authStore = inject(AuthStore);
   private authService = inject(AuthService);
   private router = inject(Router);
+
+  darkMode = false;
 
   // Define options once for reuse
   private readonly matchOptions: IsActiveMatchOptions = {
@@ -89,6 +97,11 @@ export class AppShell {
       },
     ];
   });
+
+  toggleDarkMode() {
+    const element = document.querySelector('html');
+    element?.classList.toggle('notitia-dark');
+  }
 
   logout() {
     this.authService.signOut();
