@@ -27,8 +27,8 @@ import { AuthService } from '../auth/auth.service';
   imports: [
     AvatarModule,
     ButtonModule,
-    CommonModule,
     CardModule,
+    CommonModule,
     DividerModule,
     FormsModule,
     MenubarModule,
