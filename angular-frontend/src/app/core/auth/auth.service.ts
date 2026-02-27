@@ -34,6 +34,22 @@ export class AuthService {
     return this.supabase.auth.signInWithPassword({ email, password });
   }
 
+  async getAvatarUrl(uid: string): Promise<string | null> {
+    const { data, error } = await this.supabase
+      .from('people')
+      .select('avatar_url')
+      .eq('id', uid)
+      .limit(1)
+      .single();
+
+    if (error) {
+      console.error('Error fetching avatar URL:', error);
+      return null;
+    }
+
+    return data?.avatar_url ?? null;
+  }
+
   signOut() {
     return this.supabase.auth.signOut();
   }

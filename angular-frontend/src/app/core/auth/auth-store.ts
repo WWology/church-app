@@ -32,8 +32,13 @@ export const AuthStore = signalStore(
   withComputed((state) => ({
     isAuthenticated: () => Boolean(state.user()),
     displayName: () => state.user()?.user_metadata?.['full_name'] || 'Anonymous',
-    avatar: () => {
+    avatar: async () => {
       const id = state.user()?.id;
+      if (id) {
+        const url = await state.authService.getAvatarUrl(id);
+        return url;
+      }
+
       return null;
     },
     uid: () => state.user()?.id,

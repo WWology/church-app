@@ -19,8 +19,7 @@
         </ng-template>
       </p-toggleswitch>
       <!-- Avatar -->
-      // eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, //
-      eslint-disable-next-line @angular-eslint/template/interactive-supports-focus
+      <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
       <div (click)="op.toggle($event)" class="flex items-center gap-2 mx-2">
         @if (authStore.avatar() !== null) {
           <!-- Todo, add Avatar here -->
@@ -46,7 +45,7 @@
           Settings
         </a>
         <p-divider />
-        // eslint-disable-next-line @angular-eslint/template/elements-content
+        <!-- eslint-disable-next-line @angular-eslint/template/elements-content -->
         <button pButton label="Logout" icon="pi pi-sign-out" (click)="logout()"></button>
       </div>
     </p-popover>
