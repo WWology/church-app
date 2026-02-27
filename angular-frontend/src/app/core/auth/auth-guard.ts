@@ -15,7 +15,7 @@ export const authGuard: CanActivateChildFn = (_, state) => {
       });
 };
 
-export const publicOnlyGuard: CanActivateFn = (route, _) => {
+export const publicOnlyGuard: CanActivateFn = (route) => {
   if (route.queryParamMap.get('justRegistered') === 'true') {
     return true;
   }

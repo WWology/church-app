@@ -1,12 +1,8 @@
-import { inject, Injectable, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Injectable } from '@angular/core';
 
-import { createClient, Session, SupabaseClient, User } from '@supabase/supabase-js';
+import { createClient, Session, SupabaseClient } from '@supabase/supabase-js';
 
 import { environment } from '../../../environments/environment';
-import { AuthStore } from './auth-store';
-import { create } from 'domain';
-import { Observable, share } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

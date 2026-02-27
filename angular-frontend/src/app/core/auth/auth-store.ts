@@ -14,9 +14,9 @@ import { User } from '@supabase/supabase-js';
 
 import { AuthService } from './auth.service';
 
-type AuthState = {
+interface AuthState {
   user: User | null;
-};
+}
 
 const initialState: AuthState = {
   user: null,
@@ -33,7 +33,6 @@ export const AuthStore = signalStore(
     isAuthenticated: () => Boolean(state.user()),
     displayName: () => state.user()?.user_metadata?.['full_name'] || 'Anonymous',
     avatar: () => {
-      const user = state.user();
       return null;
     },
     uid: () => state.user()?.id,
