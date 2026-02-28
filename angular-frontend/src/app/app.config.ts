@@ -2,7 +2,7 @@ import { ApplicationConfig, inject, provideAppInitializer } from '@angular/core'
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 
-import { definePreset, palette } from '@primeuix/themes';
+import { definePreset } from '@primeuix/themes';
 import Aura from '@primeuix/themes/aura';
 import { providePrimeNG } from 'primeng/config';
 

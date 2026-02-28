@@ -21,8 +21,8 @@
       <!-- Avatar -->
       <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
       <div (click)="op.toggle($event)" class="flex items-center gap-2 mx-2">
-        @if (authStore.avatar() !== null) {
-          <!-- Todo, add Avatar here -->
+        @if (authStore.avatar() | async; as avatarUrl) {
+          <p-avatar [image]="avatarUrl" size="large" shape="circle"></p-avatar>
         } @else {
           <p-avatar [label]="authStore.displayName()[0]" size="large" shape="circle"></p-avatar>
         }
